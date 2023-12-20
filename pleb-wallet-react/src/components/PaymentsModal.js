@@ -1,12 +1,8 @@
 import React, { useState } from "react";
-import Modal from "react-modal"
-import axios from "axios"
-import "./PaymentsModal.css"
-import config from "../config";
+import Modal from "react-modal";
+import axios from "axios";
+import "./PaymentsModal.css";
 
-const LN_BITS_ADMIN_KEY = `"X-Api-Key": "${config.adminKey}"`
-const LN_BITS_API_URL = `https://legend.lnbits.com/api/v1/payments`
-const LN_BITS_API_WALLET = `https://legend.lnbits.com/api/v1/wallet`
 
 const customStyles = {
     content: {
@@ -27,7 +23,7 @@ const PaymentsModal = ({modalState, setModalState}) => {
         paymentHash: "",
         checkingId: "",
     })
-}
+
 
 const handleSend = (e, apikey, url) => {
     e.preventDefault()
@@ -148,5 +144,5 @@ return (
     </Modal>
   );
 };
-
+}
 export default PaymentsModal;

@@ -1,6 +1,6 @@
 import React from "react";
 import LineChart from "react-linechart";
-import "../node_modules/react-linechart/dist/styles.css"
+// import "../node_modules/react-linechart/src/styles.css"
 import "./Chart.css"
 
 const Chart = ({chartData}) => {
