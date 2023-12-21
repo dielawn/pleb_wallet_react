@@ -6,12 +6,13 @@ import Chart from './components/Chart'
 import Buttons from './components/Buttons';
 import config from './config';
 
+const LN_BITS_PAYMENTS_URL = `https://legend.lnbits.com/api/v1/payments`
+const LN_BITS_WALLET_URL = `https://legend.lnbits.com/api/v1/wallet`
+const LN_BITS_ADMIN_KEY = config.adminKey
+
+
 function App() {
-
-  const LN_BITS_API_URL = `https://legend.lnbits.com/api/v1/payments`
-  const LN_BITS_API_WALLET = `https://legend.lnbits.com/api/v1/wallet`
-
-  
+ 
   const [price, setPrice] = useState(null)
   const [balance, setBalance] = useState(null)
   const [chartData, setChartData] = useState(null)
@@ -73,15 +74,15 @@ function App() {
   
   useEffect(() => {
     getPrice()
-    getWaletBalance(config.adminKey, LN_BITS_API_WALLET)
-    getTransactions(config.adminKey, LN_BITS_API_URL)
+    getWaletBalance(LN_BITS_ADMIN_KEY, LN_BITS_WALLET_URL)
+    getTransactions(LN_BITS_ADMIN_KEY, LN_BITS_PAYMENTS_URL)
   }, [])
 
   useEffect(() => {
     const interval = setInterval(() => {
       getPrice()
-      getWaletBalance(config.adminKey, LN_BITS_API_WALLET)
-      getTransactions(config.adminKey, LN_BITS_API_URL)
+      getWaletBalance(LN_BITS_ADMIN_KEY, LN_BITS_WALLET_URL)
+      getTransactions(LN_BITS_ADMIN_KEY, LN_BITS_PAYMENTS_URL)
     }, 5000)
     return () => clearInterval(interval)
   }, [])

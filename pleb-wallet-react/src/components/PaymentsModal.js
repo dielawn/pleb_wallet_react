@@ -13,27 +13,29 @@ const customStyles = {
     },
 }
 
-const PaymentsModal = ({modalState, setModalState}) => {
+const PaymentsModal = ({ modalState, setModalState, apikey, url }) => {
     const [formData, setFormData] = useState({
         amount: 0,
         invoiceToPay: "",
-    })
+      })
     const [invoice, setInvoice] = useState("")
     const [paymentInfo, setPaymentInfo] = useState({
         paymentHash: "",
         checkingId: "",
-    })
+      })
 
 
-const handleSend = (e, apikey, url) => {
+const handleSend = (e) => {
     e.preventDefault()
-    const headers = {apikey}
+    const headers = {
+        "X-Api-Key": apikey
+    }
     const data = {
         bolt11: formData.invoiceToPay,
         out: true,
     }
     axios
-        .post(url, data, {headers})
+        .post(url, data, headers)
         .then((res) => {
             setPaymentInfo({
                 paymentHash: res.data.payment_hash,
@@ -45,9 +47,11 @@ const handleSend = (e, apikey, url) => {
         return
 }
 
-const handleReceive = (e, apikey, url) => {
+const handleReceive = (e) => {
     e.preventDefault()
-    const headers = {apikey}
+    const headers = {
+        "X-Api-Key": apikey
+    }
     const data = {
         amount: formData.amount,
         out: false,
@@ -55,7 +59,7 @@ const handleReceive = (e, apikey, url) => {
         memo: "LNBits",
     }
     axios
-        .post(url, data, {headers})
+        .post(url, data, headers)
         .then((res) => setInvoice(res.data.payment_request))
         .catch((err) => console.error(`Error receiving ${err}`))
 
@@ -78,6 +82,7 @@ const clearForms = () => {
     })
 
 return (
+    
     <Modal
       isOpen={modalState.open}
       style={customStyles}
@@ -92,7 +97,9 @@ return (
       >
         X
       </p>
-      {/* If it is a send */}
+      {/* If it is a send */ 
+        console.log(`modalOpen: ${modalState.open}, modalType: ${modalState.type}`)
+    }
       {modalState.type === "send" && (
         <form>
           <label>paste an invoice</label>

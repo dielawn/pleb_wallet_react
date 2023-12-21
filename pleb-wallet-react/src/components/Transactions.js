@@ -16,8 +16,8 @@ export const Transactions = ({transactions}) => {
         const txText = isDeposit ? `Received from` : `Sent with`
         const isPlus = isDeposit ? `+` : ``
         const amount = tx.amount / 1000
-        const isGrtrThnOne = amount > 1
-        const isPluralTxt = isGrtrThnOne ? `sats` : `sat`
+        const isPlural = (amount !== 1 && amount !== -1)
+        const isPluralTxt = isPlural ? `sats` : `sat`
         const date = new Date(tx.time * 1000)
         const formatedDate = date.toLocaleDateString("en-US")
 
